@@ -1,0 +1,14 @@
+.App {
+  width:40%;
+  margin :5% 0 0 30%;
+}
+.error{
+  color: #dc3545;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    width: 100%;
+}
