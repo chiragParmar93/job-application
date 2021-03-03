@@ -79,6 +79,7 @@ export default class Job extends Component {
                                 read: false,
                                 write: false,
                                 speak: false,
+                                disabled: true
                             }
                             langElement.push(obj);
                         });
@@ -131,6 +132,18 @@ export default class Job extends Component {
             });
     };
 
+    handleLanguageCheckbox = (value) => {
+        console.log(value, 'value');
+        return !value ? true : false;
+    }
+
+    handleLanguageCheckboxCheck = (fieldValue, selectionValue) => {
+        if (!selectionValue) {
+            return false;
+        }
+        return fieldValue;
+    }
+
     render() {
         const { locationsData, formValue, msg } = this.state;
         return (
@@ -146,7 +159,7 @@ export default class Job extends Component {
                     validationSchema={validationSchema}
                     onSubmit={values => { this.onSubmitHandler(values) }}
                     render={({ errors, touched, values, setFieldValue }) => (
-                        <Form>
+                        <Form autocomplete="off">
                             <h5>Basic Details</h5>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
@@ -253,7 +266,12 @@ export default class Job extends Component {
                                             const errorDesignationName = getIn(errors, designation);
 
                                             const startDate = `experience[${index}].start_date`;
-                                            const EndDate = `experience[${index}].end_date`;
+                                            const touchedStartDateName = getIn(touched, startDate);
+                                            const errorStartDateName = getIn(errors, startDate);
+
+                                            const endDate = `experience[${index}].end_date`;
+                                            const touchedEndDateName = getIn(touched, endDate);
+                                            const errorEndDateName = getIn(errors, endDate);
 
                                             return (
                                                 <div key={p.id}>
@@ -279,32 +297,36 @@ export default class Job extends Component {
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6 form-group">
+                                                            <label>Start Date</label>
                                                             <DatePicker
                                                                 placeholderText="Start Date"
                                                                 label="Start Date"
                                                                 selected={getIn(values, startDate) || ''}
                                                                 value={getIn(values, startDate)}
                                                                 dateFormat="yyyy-MM-dd"
-                                                                className="form-control"
+                                                                className={'form-control' + (touchedStartDateName && errorStartDateName ? ' is-invalid' : '')}
                                                                 name={startDate}
                                                                 onChange={date => setFieldValue(startDate, date)}
                                                                 placeholderText="Click to select a start date"
                                                             />
+                                                            <span className="is-invalid"></span>
                                                             <ErrorMessage name={startDate} component="div" className="invalid-feedback" />
                                                         </div>
                                                         <div class="col-6 form-group">
+                                                            <label>End Date</label>
                                                             <DatePicker
                                                                 placeholderText="End Date"
                                                                 label="End Date"
-                                                                selected={getIn(values, EndDate) || ''}
-                                                                value={getIn(values, EndDate) || ''}
+                                                                selected={getIn(values, endDate) || ''}
+                                                                value={getIn(values, endDate) || ''}
                                                                 dateFormat="yyyy-MM-dd"
-                                                                className="form-control"
-                                                                name={EndDate}
-                                                                onChange={date => setFieldValue(EndDate, date)}
+                                                                className={'form-control' + (touchedEndDateName && errorEndDateName ? ' is-invalid' : '')}
+                                                                name={endDate}
+                                                                onChange={date => setFieldValue(endDate, date)}
                                                                 placeholderText="Click to end date"
                                                             />
-                                                            <ErrorMessage name={EndDate} component="div" className="invalid-feedback" />
+                                                            <span className="is-invalid"></span>
+                                                            <ErrorMessage name={endDate} component="div" className="invalid-feedback" />
                                                         </div>
                                                     </div>
                                                     {index != 0 && (
@@ -348,7 +370,13 @@ export default class Job extends Component {
                                                 <div key={p.id}>
                                                     <div class="row">
                                                         <div class="col-2 form-group">
-                                                            <label>{getIn(values, nameField)}</label>
+                                                            <Field
+                                                                type="checkbox"
+                                                                name={`languages[${index}].selection`}
+                                                                checked={getIn(values, `languages[${index}].selection`) || false}
+                                                                value={getIn(values, `languages[${index}].selection`) || false}
+                                                            />
+                                                            <label>&nbsp; {getIn(values, nameField)}</label>
                                                         </div>
                                                         <div class="col-2 form-group">
                                                             <Field
@@ -356,6 +384,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].read`}
                                                                 checked={getIn(values, `languages[${index}].read`) || false}
                                                                 value={getIn(values, `languages[${index}].read`) || false}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
                                                             />
                                                             <label>&nbsp; Read</label>
                                                         </div>
@@ -365,6 +394,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].write`}
                                                                 checked={getIn(values, `languages[${index}].write`) || false}
                                                                 value={getIn(values, `languages[${index}].write`) || false}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
                                                             />
                                                             <label>&nbsp; Write</label>
                                                         </div>
@@ -374,6 +404,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].speak`}
                                                                 checked={getIn(values, `languages[${index}].speak`) || false}
                                                                 value={getIn(values, `languages[${index}].speak`) || false}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
                                                             />
                                                             <label>&nbsp; Speak</label>
                                                         </div>
@@ -395,14 +426,37 @@ export default class Job extends Component {
                                                 <div key={p.id}>
                                                     <div class="row">
                                                         <div class="col-2 form-group">
-                                                            <label>{getIn(values, techExField)}</label>
+                                                            <Field
+                                                                type="checkbox"
+                                                                name={`techExperience[${index}].selection`}
+                                                                checked={getIn(values, `techExperience[${index}].selection`) || false}
+                                                                value={getIn(values, `techExperience[${index}].selection`) || false}
+                                                            />
+                                                            <label>&nbsp; {getIn(values, techExField)} &nbsp;</label>
                                                         </div>
                                                         <div class="col-8 form-group pr-2">
-                                                            <Field type="radio" name={`techExperience[${index}].type`} value="beginner" />
+                                                            <Field
+                                                                type="radio"
+                                                                name={`techExperience[${index}].type`}
+                                                                value="beginner"
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                            />
                                                             <label>&nbsp; Beginner &nbsp;</label>
-                                                            <Field type="radio" name={`techExperience[${index}].type`} value="mediator" />
+
+                                                            <Field
+                                                                type="radio"
+                                                                name={`techExperience[${index}].type`}
+                                                                value="mediator"
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                            />
                                                             <label>&nbsp; Mediator &nbsp;</label>
-                                                            <Field type="radio" name={`techExperience[${index}].type`} value="expert" />
+
+                                                            <Field
+                                                                type="radio"
+                                                                name={`techExperience[${index}].type`}
+                                                                value="expert"
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                            />
                                                             <label>&nbsp; Expert &nbsp;</label>
                                                         </div>
                                                     </div>

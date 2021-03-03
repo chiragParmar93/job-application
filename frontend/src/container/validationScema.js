@@ -15,5 +15,10 @@ export const validationSchema = Yup.object().shape({
         .of(Yup.object().shape({
             company: Yup.string().required('Company name is required'),
             designation: Yup.string().required('Designation is required'),
+            start_date: Yup.date().required('Start date is required'),
+            end_date: Yup.date().required('End date is required').min(
+                Yup.ref('start_date'),
+                "End date can't be before start date"
+            ),
         }))
 })
