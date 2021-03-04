@@ -113,19 +113,20 @@
                                     @foreach($job->language as $index => $lang)
                                     <div class="row form-group">
                                         <div class="col-2 form-group ">
+                                            <input type="checkbox" class="form-control lang_checkbox" id="language_{{$index}}" name="languages[{{$index}}][is_selected]" {{ $lang->is_selected ? 'checked' : ''}} value="1">
                                             <label>{{ucFirst($lang->language)}}</label>
                                             <input type="hidden" class="form-control" name="languages[{{$index}}][language]" value="{{$lang->language}}">
                                         </div>
                                         <div class="col-2 form-group ">
-                                            <input type="checkbox" class="form-control" name="languages[{{$index}}][read]" {{ $lang->read ? 'checked' : ''}} value="1">
+                                            <input type="checkbox" {{ !$lang->is_selected ? 'disabled' : ''}} class="form-control langaccess_{{$index}}" name="languages[{{$index}}][read]" {{ $lang->read ? 'checked' : ''}} value="1">
                                             <label>Read</label>
                                         </div>
                                         <div class="col-2 form-group ">
-                                            <input type="checkbox" class="form-control" name="languages[{{$index}}][write]" {{ $lang->write ? 'checked' : ''}} value="1">
+                                            <input type="checkbox" {{ !$lang->is_selected ? 'disabled' : ''}} class="form-control langaccess_{{$index}}" name="languages[{{$index}}][write]" {{ $lang->write ? 'checked' : ''}} value="1">
                                             <label>Write</label>
                                         </div>
                                         <div class="col-2 form-group ">
-                                            <input type="checkbox" class="form-control" name="languages[{{$index}}][speak]" {{ $lang->speak ? 'checked' : ''}} value="1">
+                                            <input type="checkbox" {{ !$lang->is_selected ? 'disabled' : ''}} class="form-control langaccess_{{$index}}" name="languages[{{$index}}][speak]" {{ $lang->speak ? 'checked' : ''}} value="1">
                                             <label>Speak</label>
                                         </div>
                                     </div>
@@ -135,17 +136,18 @@
                                     @foreach($job->technicalExperiences as $index => $tech)
                                     <div class="row form-group">
                                         <div class="col-2 form-group ">
+                                            <input type="checkbox" class="form-control technical_checkbox" id="tech_{{$index}}" name="techExperience[{{$index}}][is_selected]" {{ $tech->is_selected ? 'checked' : ''}} value="1">
                                             <label>{{ucFirst($tech->technology)}}</label>
                                             <input type="hidden" class="form-control" name="techExperience[{{$index}}][technology]" value="{{$tech->technology}}">
                                         </div>
                                         <div class="col-2 form-group">
-                                            <input type=radio name="techExperience[{{$index}}][type]" value="beginner" {{ $tech->type == 'beginner' ? 'checked' : ''}}> Beginner</option>
+                                            <input type=radio name="techExperience[{{$index}}][type]" {{ !$tech->is_selected ? 'disabled' : ''}} class="techaccess_{{$index}}" value="beginner" {{ $tech->type == 'beginner' ? 'checked' : ''}}> Beginner</option>
                                         </div>
                                         <div class="col-2 form-group">
-                                            <input type=radio name="techExperience[{{$index}}][type]" value="mediator" {{ $tech->type == 'mediator' ? 'checked' : ''}}> Mediator</option>
+                                            <input type=radio name="techExperience[{{$index}}][type]" {{ !$tech->is_selected ? 'disabled' : ''}} class="techaccess_{{$index}}" value="mediator" {{ $tech->type == 'mediator' ? 'checked' : ''}}> Mediator</option>
                                         </div>
                                         <div class="col-2 form-group">
-                                            <input type=radio name="techExperience[{{$index}}][type]" value="expert" {{ $tech->type == 'expert' ? 'checked' : ''}}> Expert</option>
+                                            <input type=radio name="techExperience[{{$index}}][type]" {{ !$tech->is_selected ? 'disabled' : ''}} class="techaccess_{{$index}}" value="expert" {{ $tech->type == 'expert' ? 'checked' : ''}}> Expert</option>
                                         </div>
                                     </div>
                                     @endforeach
@@ -189,5 +191,25 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('.lang_checkbox').click(function() {
+            var arr = this.id.split('_');
+            if (!this.checked) {
+                $(`.langaccess_${arr[1]}`).attr('checked', false);
+                $(`.langaccess_${arr[1]}`).attr('disabled', "disabled");
+            } else {
+                $(`.langaccess_${arr[1]}`).attr('disabled', false);
+            }
+        });
+        $('.technical_checkbox').click(function() {
+            var arr = this.id.split('_');
+            if (!this.checked) {
+                $(`.techaccess_${arr[1]}`).attr('checked', false);
+                $(`.techaccess_${arr[1]}`).attr('disabled', "disabled");
+            } else {
+                $(`.techaccess_${arr[1]}`).attr('disabled', false);
+            }
+        });
 
+    </script>
 </x-app-layout>

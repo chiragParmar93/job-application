@@ -10,6 +10,7 @@ class JobTechnicalExperiences extends Model
 
     protected $fillable = [
         'technology',
+        'is_selected',
         'type',
     ];
 }

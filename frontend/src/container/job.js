@@ -372,9 +372,9 @@ export default class Job extends Component {
                                                         <div class="col-2 form-group">
                                                             <Field
                                                                 type="checkbox"
-                                                                name={`languages[${index}].selection`}
-                                                                checked={getIn(values, `languages[${index}].selection`) || false}
-                                                                value={getIn(values, `languages[${index}].selection`) || false}
+                                                                name={`languages[${index}].is_selected`}
+                                                                checked={getIn(values, `languages[${index}].is_selected`) || false}
+                                                                value={getIn(values, `languages[${index}].is_selected`) || false}
                                                             />
                                                             <label>&nbsp; {getIn(values, nameField)}</label>
                                                         </div>
@@ -384,7 +384,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].read`}
                                                                 checked={getIn(values, `languages[${index}].read`) || false}
                                                                 value={getIn(values, `languages[${index}].read`) || false}
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Read</label>
                                                         </div>
@@ -394,7 +394,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].write`}
                                                                 checked={getIn(values, `languages[${index}].write`) || false}
                                                                 value={getIn(values, `languages[${index}].write`) || false}
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Write</label>
                                                         </div>
@@ -404,7 +404,7 @@ export default class Job extends Component {
                                                                 name={`languages[${index}].speak`}
                                                                 checked={getIn(values, `languages[${index}].speak`) || false}
                                                                 value={getIn(values, `languages[${index}].speak`) || false}
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `languages[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Speak</label>
                                                         </div>
@@ -428,9 +428,9 @@ export default class Job extends Component {
                                                         <div class="col-2 form-group">
                                                             <Field
                                                                 type="checkbox"
-                                                                name={`techExperience[${index}].selection`}
-                                                                checked={getIn(values, `techExperience[${index}].selection`) || false}
-                                                                value={getIn(values, `techExperience[${index}].selection`) || false}
+                                                                name={`techExperience[${index}].is_selected`}
+                                                                checked={getIn(values, `techExperience[${index}].is_selected`) || false}
+                                                                value={getIn(values, `techExperience[${index}].is_selected`) || false}
                                                             />
                                                             <label>&nbsp; {getIn(values, techExField)} &nbsp;</label>
                                                         </div>
@@ -439,7 +439,7 @@ export default class Job extends Component {
                                                                 type="radio"
                                                                 name={`techExperience[${index}].type`}
                                                                 value="beginner"
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Beginner &nbsp;</label>
 
@@ -447,7 +447,7 @@ export default class Job extends Component {
                                                                 type="radio"
                                                                 name={`techExperience[${index}].type`}
                                                                 value="mediator"
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Mediator &nbsp;</label>
 
@@ -455,7 +455,7 @@ export default class Job extends Component {
                                                                 type="radio"
                                                                 name={`techExperience[${index}].type`}
                                                                 value="expert"
-                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].selection`))}
+                                                                disabled={this.handleLanguageCheckbox(getIn(values, `techExperience[${index}].is_selected`))}
                                                             />
                                                             <label>&nbsp; Expert &nbsp;</label>
                                                         </div>
